@@ -1,10 +1,13 @@
-run-project:
-	# run project
-	@echo "Grafana UI: http://localhost:3000"
+start-project:
+	docker compose -p nginxexam up -d --build
 
-test-api:
-	curl -X POST "https://localhost/predict" \
-     -H "Content-Type: application/json" \
-     -d '{"sentence": "Oh yeah, that was soooo cool!"}' \
-	 --user admin:admin \
-     --cacert ./deployments/nginx/certs/nginx.crt;
+stop-project:
+	docker compose -p nginxexam down
+
+test:
+	bash tests/run_tests.sh
+
+links:
+	@echo "Nginx Gateway: https://localhost"
+	@echo "Prometheus: http://localhost:9090"
+	@echo "Grafana: http://localhost:3000"
